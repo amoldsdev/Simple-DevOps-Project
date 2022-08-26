@@ -1,0 +1,21 @@
+root@781ef19df0fc:/usr/local/tomcat/webapps# exit
+exit
+[root@ip-172-31-91-120 ~]# docker ps -a
+CONTAINER ID   IMAGE     COMMAND             CREATED          STATUS          PORTS                                       NAMES
+781ef19df0fc   tomcat    "catalina.sh run"   19 minutes ago   Up 19 minutes   0.0.0.0:8081->8080/tcp, :::8081->8080/tcp   tomcat-container
+[root@ip-172-31-91-120 ~]# docker stop tomcat-container
+tomcat-container
+[root@ip-172-31-91-120 ~]# docker ps -a
+CONTAINER ID   IMAGE     COMMAND             CREATED          STATUS                       PORTS     NAMES
+781ef19df0fc   tomcat    "catalina.sh run"   20 minutes ago   Exited (143) 9 seconds ago             tomcat-container
+This is temporary running tomcat so after exit it will not work
+[root@ip-172-31-91-120 ~]#
+[root@ip-172-31-91-120 ~]# docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+[root@ip-172-31-91-120 ~]# docker run -d --name tomcat2 -p 8082:8080 tomcat:latest
+Again goto webpage and access tomcat it will not work
+We updated the changes in docker container, whatever changes we do in image it wont get affected in image
+ 
+When we launch new image it will come up with same error, we can troubleshoot it by we create docker file we pull the tomcat image from docker hub and we will do the customization
+Like copying the file from webapp.dist to webapp directory, so that the content will be accessible under webapp directory
+Then we will create docket image so that changes will be captured here and then we launch it into the tomcat container, so we will not see the 404 error in accessing tomcat container.
